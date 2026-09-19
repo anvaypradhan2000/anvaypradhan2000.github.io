@@ -1,12 +1,17 @@
 /* ==========================================================================
-   Anvay — research site
+   Anvay Pradhan — research site
+   Shared stylesheet for index / research / publications / experience.
+
    Structure: a fixed vertical rail (the warp) and a content column that
-   passes through it (the weft). Rules between sections are woven, not solid.
+   passes through it (the weft). The navigation is itself a plain weave —
+   each link is a weft strip interlaced with the rail's warp threads.
    ========================================================================== */
 
 :root {
   --paper:      #F0F1EF;
   --paper-deep: #E3E5E1;
+  --weft:       #E6E9E5;
+  --warp-line:  #C3C9C3;
   --ink:        #14181B;
   --tow:        #46545E;
   --rule:       #C7CCC7;
@@ -15,13 +20,19 @@
   --heat:       #C98A22;
 
   --measure: 34rem;
-  --step: clamp(2.2rem, 5vw, 3.6rem);
+  --step: clamp(2.2rem, 5vw, 3.4rem);
+
+  /* weave geometry for the navigation */
+  --warp-w: 10px;     /* thread width */
+  --warp-p: 22px;     /* thread pitch */
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
     --paper:      #15191C;
     --paper-deep: #1E2428;
+    --weft:       #212830;
+    --warp-line:  #333D45;
     --ink:        #E9EBE7;
     --tow:        #A3AEB5;
     --rule:       #38424A;
@@ -32,7 +43,6 @@
 }
 
 *, *::before, *::after { box-sizing: border-box; }
-
 html { -webkit-text-size-adjust: 100%; }
 
 body {
@@ -47,28 +57,32 @@ body {
 
 .skip {
   position: absolute;
-  left: -9999px;
-  top: 0;
-  background: var(--ink);
-  color: var(--paper);
-  padding: .6rem 1rem;
-  z-index: 10;
+  left: -9999px; top: 0;
+  background: var(--ink); color: var(--paper);
+  padding: .6rem 1rem; z-index: 10;
 }
 .skip:focus { left: 0; }
+
+a { color: var(--active); text-underline-offset: .18em; }
+a:focus-visible {
+  outline: 2px solid var(--active);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
 
 /* --- Page frame ---------------------------------------------------------- */
 
 .page {
-  max-width: 62rem;
+  max-width: 64rem;
   margin: 0 auto;
   padding: 0 1.5rem 4rem;
 }
 
-@media (min-width: 60rem) {
+@media (min-width: 62rem) {
   .page {
     display: grid;
-    grid-template-columns: 15rem minmax(0, 1fr);
-    gap: 4rem;
+    grid-template-columns: 16rem minmax(0, 1fr);
+    gap: 4.5rem;
     padding: 0 2.5rem 6rem;
   }
 }
@@ -77,83 +91,135 @@ body {
 
 .rail-inner { padding: 3rem 0 0; }
 
-@media (min-width: 60rem) {
-  .rail-inner {
-    position: sticky;
-    top: 0;
-    padding: 5rem 0 2rem;
-  }
+@media (min-width: 62rem) {
+  .rail-inner { position: sticky; top: 0; padding: 4.5rem 0 2rem; }
 }
 
 .name {
+  display: block;
   font-family: Archivo, 'Helvetica Neue', Arial, sans-serif;
   font-weight: 700;
   font-size: 1.75rem;
   line-height: 1.1;
   letter-spacing: -0.022em;
-  margin: 0 0 .75rem;
+  color: var(--ink);
+  text-decoration: none;
+  margin-bottom: .7rem;
 }
+.name:hover { color: var(--active); }
 .surname { display: block; color: var(--tow); font-weight: 500; }
 
 .role {
-  margin: 0 0 2rem;
-  font-size: .9375rem;
+  margin: 0 0 1.75rem;
+  font-size: .9rem;
   line-height: 1.5;
   color: var(--tow);
 }
 
-.nav {
-  display: flex;
-  flex-wrap: wrap;
-  gap: .35rem 1.25rem;
-  margin-bottom: 2rem;
+/* --- The woven navigation ------------------------------------------------
+   The rail carries continuous vertical warp threads. Each link is a weft
+   strip laid across them, and its ::after paints back the warp threads that
+   pass over that strip — offset by one thread on alternating rows, which is
+   what makes it a plain weave rather than a stack of bars.
+   ------------------------------------------------------------------------- */
+
+.loom-nav {
+  position: relative;
+  padding: 7px 0;
+  margin-bottom: 1.75rem;
+  background-image: repeating-linear-gradient(
+    to right,
+    var(--warp-line) 0 var(--warp-w),
+    transparent var(--warp-w) var(--warp-p));
 }
 
-@media (min-width: 60rem) {
-  .nav { flex-direction: column; gap: .4rem; }
-}
-
-.nav a {
+.thread-link {
+  position: relative;
+  display: block;
+  padding: .52rem .9rem;
+  margin-bottom: 7px;
+  background-color: var(--weft);
   font-family: Archivo, Arial, sans-serif;
   font-size: .9375rem;
   font-weight: 500;
   color: var(--ink);
   text-decoration: none;
-  padding-bottom: 2px;
-  background-image: none;
+  transition: background-color 180ms ease, color 180ms ease;
 }
-.nav a:hover,
-.nav a:focus-visible {
-  color: var(--active);
-  /* the weft dipping under the warp */
+.thread-link:last-child { margin-bottom: 0; }
+
+/* warp threads passing over this weft strip */
+.thread-link::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  opacity: .5;
   background-image: repeating-linear-gradient(
-    to right, currentColor 0 9px, transparent 9px 15px);
-  background-repeat: repeat-x;
-  background-size: 15px 1.5px;
-  background-position: 0 100%;
+    to right,
+    var(--warp-line) 0 var(--warp-w),
+    transparent var(--warp-w) calc(var(--warp-p) * 2));
+  background-position-x: 0;
+  pointer-events: none;
+  transition: opacity 180ms ease;
 }
+.thread-link:nth-child(even)::after {
+  background-position-x: var(--warp-p);
+}
+
+.thread-link span { position: relative; z-index: 2; }
+
+.thread-link:hover,
+.thread-link:focus-visible {
+  background-color: var(--active-dim);
+  color: var(--ink);
+}
+.thread-link:hover::after,
+.thread-link:focus-visible::after { opacity: .3; }
+
+.thread-link[aria-current='page'] {
+  background-color: var(--ink);
+  color: var(--paper);
+}
+.thread-link[aria-current='page']::after { opacity: .22; }
+
+/* --- Rail links ---------------------------------------------------------- */
 
 .links {
   list-style: none;
   margin: 0;
   padding: 1.25rem 0 0;
   border-top: 1px solid var(--rule);
-  font-size: .9375rem;
+  font-size: .9rem;
 }
-.links li { margin-bottom: .4rem; }
+.links li { margin-bottom: .35rem; }
 .links a { color: var(--tow); }
 
 /* --- Main column --------------------------------------------------------- */
 
 .main { padding-top: 2.5rem; min-width: 0; }
+@media (min-width: 62rem) { .main { padding-top: 4.5rem; } }
 
-@media (min-width: 60rem) { .main { padding-top: 5rem; } }
+.page-title {
+  font-family: Archivo, Arial, sans-serif;
+  font-weight: 700;
+  font-size: clamp(1.6rem, 4vw, 2.1rem);
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+  margin: 0 0 .6rem;
+}
+
+.standfirst {
+  max-width: var(--measure);
+  color: var(--tow);
+  margin: 0 0 var(--step);
+}
 
 .lede {
-  font-size: clamp(1.3rem, 3.2vw, 1.72rem);
+  font-size: clamp(1.28rem, 3vw, 1.62rem);
   line-height: 1.38;
-  max-width: 26ch;
-  margin: 0 0 var(--step);
+  max-width: 28ch;
+  margin: 0 0 1.5rem;
   text-wrap: balance;
 }
 
@@ -169,45 +235,72 @@ h2 {
 h3 {
   font-family: Archivo, Arial, sans-serif;
   font-weight: 600;
-  font-size: 1.0625rem;
+  font-size: 1.125rem;
+  letter-spacing: -0.014em;
+  margin: 0 0 .9rem;
+}
+
+h4 {
+  font-family: Archivo, Arial, sans-serif;
+  font-weight: 600;
+  font-size: 1rem;
   letter-spacing: -0.012em;
-  margin: 0 0 .4rem;
+  margin: 0 0 .3rem;
 }
 
 .block { margin: var(--step) 0; }
-.block p { max-width: var(--measure); }
-
-.thread { margin-bottom: 1.9rem; }
-.thread:last-child { margin-bottom: 0; }
-.thread p { margin: 0; color: var(--tow); }
-
-.advisors { margin-bottom: 0; }
-
-a { color: var(--active); text-underline-offset: .18em; }
-a:focus-visible {
-  outline: 2px solid var(--active);
-  outline-offset: 3px;
-  border-radius: 2px;
-}
+.block > p { max-width: var(--measure); }
 
 /* --- Woven rule ---------------------------------------------------------- */
 
-.weft {
+.weft-rule {
   border: 0;
   height: 6px;
   margin: 0;
+  opacity: .9;
   background-image:
     repeating-linear-gradient(to right, var(--rule) 0 22px, transparent 22px 44px),
     repeating-linear-gradient(to right, transparent 0 22px, var(--tow) 22px 44px);
   background-size: 44px 2px, 44px 2px;
   background-position: 0 0, 0 4px;
   background-repeat: repeat-x;
-  opacity: .85;
 }
 
-/* --- The loom ------------------------------------------------------------ */
+/* --- Home: portrait + lede ----------------------------------------------- */
 
-.loom { margin: 0 0 var(--step); }
+.intro { margin-bottom: var(--step); }
+
+@media (min-width: 46rem) {
+  .intro {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 13rem;
+    gap: 2.5rem;
+    align-items: start;
+  }
+}
+
+.portrait {
+  display: block;
+  width: 100%;
+  max-width: 13rem;
+  height: auto;
+  border-radius: 2px;
+  background: var(--paper-deep);
+}
+
+.portrait-cap {
+  margin: .5rem 0 0;
+  font-size: .8125rem;
+  color: var(--tow);
+  line-height: 1.45;
+}
+
+.intro-body p { margin: 0 0 1rem; max-width: var(--measure); }
+.intro-body p:last-child { margin-bottom: 0; }
+
+/* --- The loom (home page figure) ----------------------------------------- */
+
+.loom { margin: var(--step) 0; }
 
 .loom-stage {
   perspective: 1000px;
@@ -231,22 +324,14 @@ a:focus-visible {
   stroke-width: 1.25;
   transition: fill 900ms ease, stroke 900ms ease;
 }
-
 .tow-fill { stroke: none; }
-
-.tow-edge {
-  stroke: var(--tow);
-  stroke-width: 1.25;
-  transition: stroke 900ms ease;
-}
+.tow-edge { stroke: var(--tow); stroke-width: 1.25; transition: stroke 900ms ease; }
 
 .tow-active { fill: var(--active-dim); stroke: var(--active); }
 .tow-fill.tow-active { stroke: none; }
 .tow-edge-active { stroke: var(--active); }
 
-.is-morphed .weave {
-  transform: rotateX(56deg) rotateZ(-12deg) scale(.94);
-}
+.is-morphed .weave { transform: rotateX(56deg) rotateZ(-12deg) scale(.94); }
 .is-morphed .tow-active { fill: var(--heat); stroke: var(--heat); }
 .is-morphed .tow-fill.tow-active { stroke: none; }
 .is-morphed .tow-edge-active { stroke: var(--heat); }
@@ -273,23 +358,70 @@ a:focus-visible {
 .morph:hover { background: var(--active); }
 .morph:focus-visible { outline: 2px solid var(--active); outline-offset: 3px; }
 
-.loom-note {
-  font-size: .875rem;
+.loom-note { font-size: .875rem; color: var(--tow); max-width: 32ch; }
+
+/* --- Education ----------------------------------------------------------- */
+
+.edu { list-style: none; margin: 0; padding: 0; max-width: var(--measure); }
+
+.edu > li {
+  padding-bottom: 1.1rem;
+  margin-bottom: 1.1rem;
+  border-bottom: 1px solid var(--rule);
+}
+.edu > li:last-child { border-bottom: 0; margin-bottom: 0; padding-bottom: 0; }
+
+.edu-school {
+  font-family: Archivo, Arial, sans-serif;
+  font-weight: 600;
+  font-size: 1rem;
+  margin: 0 0 .15rem;
+}
+.edu-years { margin: 0 0 .45rem; font-size: .875rem; color: var(--tow); }
+
+.degrees { list-style: none; margin: 0; padding: 0; }
+.degrees li {
+  position: relative;
+  padding-left: 1.1rem;
+  font-size: .9375rem;
   color: var(--tow);
-  max-width: 30ch;
+  line-height: 1.5;
+  margin-bottom: .2rem;
+}
+.degrees li::before {
+  content: '';
+  position: absolute;
+  left: 0; top: .62em;
+  width: 10px; height: 2px;
+  background: var(--warp-line);
+}
+
+/* --- Research page ------------------------------------------------------- */
+
+.category { margin-bottom: var(--step); }
+.category:last-child { margin-bottom: 0; }
+
+.category > p { max-width: var(--measure); color: var(--tow); margin: 0 0 1.5rem; }
+
+.projects { display: grid; gap: 1.6rem; max-width: var(--measure); }
+
+.project p { margin: 0; color: var(--tow); font-size: .9375rem; }
+.project .project-meta {
+  margin-top: .3rem;
+  font-size: .8125rem;
+  color: var(--tow);
+  opacity: .85;
 }
 
 /* --- Publications -------------------------------------------------------- */
 
-.pubs {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  max-width: var(--measure);
-}
+.pub-group { margin-bottom: var(--step); }
+.pub-group:last-child { margin-bottom: 0; }
+
+.pubs { list-style: none; margin: 0; padding: 0; max-width: var(--measure); }
 .pubs li {
-  padding-bottom: 1.2rem;
-  margin-bottom: 1.2rem;
+  padding-bottom: 1.15rem;
+  margin-bottom: 1.15rem;
   border-bottom: 1px solid var(--rule);
 }
 .pubs li:last-child { border-bottom: 0; margin-bottom: 0; padding-bottom: 0; }
@@ -298,29 +430,60 @@ a:focus-visible {
   font-family: Archivo, Arial, sans-serif;
   font-weight: 600;
   font-size: 1rem;
+  line-height: 1.35;
   margin: 0 0 .25rem;
 }
 .pub-meta { margin: 0; font-size: .9375rem; color: var(--tow); }
 .pub-links { margin: .35rem 0 0; font-size: .875rem; }
 .pub-links a { margin-right: .9rem; }
 
-/* --- Tools --------------------------------------------------------------- */
+.me { color: var(--ink); font-weight: 600; font-style: normal; }
 
-.tools { margin: 0; max-width: var(--measure); }
-.tools dt {
-  font-family: Archivo, Arial, sans-serif;
-  font-weight: 600;
+/* --- Experience page ----------------------------------------------------- */
+
+.entries { list-style: none; margin: 0; padding: 0; max-width: var(--measure); }
+.entries > li { margin-bottom: 1.5rem; }
+.entries > li:last-child { margin-bottom: 0; }
+
+.entry-head {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: .4rem 1rem;
   margin-bottom: .2rem;
 }
-.tools dd {
-  margin: 0 0 1.4rem;
-  color: var(--tow);
+.entry-role {
+  font-family: Archivo, Arial, sans-serif;
+  font-weight: 600;
+  font-size: 1rem;
+  margin: 0;
 }
-.tools dd:last-child { margin-bottom: 0; }
+.entry-when {
+  font-size: .8125rem;
+  color: var(--tow);
+  white-space: nowrap;
+  margin: 0;
+}
+.entries p.entry-detail { margin: 0; font-size: .9375rem; color: var(--tow); }
 
-/* --- Contact & footer ---------------------------------------------------- */
+.venues { margin: 0; padding: 0; list-style: none; max-width: var(--measure); }
+.venues li {
+  position: relative;
+  padding-left: 1.1rem;
+  font-size: .9375rem;
+  color: var(--tow);
+  margin-bottom: .25rem;
+}
+.venues li::before {
+  content: '';
+  position: absolute;
+  left: 0; top: .62em;
+  width: 10px; height: 2px;
+  background: var(--warp-line);
+}
 
-.addr { color: var(--tow); font-size: .9375rem; }
+/* --- Footer -------------------------------------------------------------- */
 
 .foot {
   margin-top: var(--step);
@@ -334,5 +497,5 @@ a:focus-visible {
 /* --- Motion preference --------------------------------------------------- */
 
 @media (prefers-reduced-motion: reduce) {
-  .weave, .tow { transition: none; }
+  .weave, .tow, .tow-edge, .thread-link, .thread-link::after { transition: none; }
 }

@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Research — Anvay Pradhan</title>
+<meta name="description" content="Research on architected materials, reduced-order modeling and inverse design, active structures, and experimental platforms.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700&family=Spectral:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<a class="skip" href="#main">Skip to content</a>
+
+<div class="page">
+
+  <header class="rail">
+    <div class="rail-inner">
+      <a class="name" href="index.html">Anvay <span class="surname">Pradhan</span></a>
+
+      <p class="role">Fifth-year PhD candidate<br>
+      Mechanical Engineering and Scientific Computing<br>
+      University of Michigan, Ann Arbor</p>
+
+      <nav class="loom-nav" aria-label="Main">
+        <a class="thread-link" href="index.html"><span>Home</span></a>
+        <a class="thread-link" href="research.html" aria-current="page"><span>Research</span></a>
+        <a class="thread-link" href="publications.html"><span>Publications</span></a>
+        <a class="thread-link" href="experience.html"><span>Experience</span></a>
+      </nav>
+
+      <ul class="links">
+        <li><a href="mailto:anvay@umich.edu">anvay@umich.edu</a></li>
+        <li><a href="cv.pdf">Curriculum vitae</a></li>
+        <li><a href="https://scholar.google.com/">Google Scholar</a></li>
+        <li><a href="https://github.com/">GitHub</a></li>
+      </ul>
+    </div>
+  </header>
+
+  <main class="main" id="main">
+
+    <h1 class="page-title">Research</h1>
+    <p class="standfirst">Four threads, one question: what design language does a
+    material need when it is made of strips instead of stuff?</p>
+
+    <!-- EDIT: every project below is a draft. Rewrite the descriptions,
+         drop the ones that don't belong, and add the ones I don't know about. -->
+
+    <section class="category">
+      <h3>Architected materials and discrete mechanical systems</h3>
+      <p>Structures whose behavior comes from how their parts are arranged and
+      how they touch, not from a bulk constitutive law.</p>
+
+      <div class="projects">
+        <article class="project">
+          <h4>Shape-morphing woven sheets</h4>
+          <p>Flat sheets woven from passive and active strips that leave the
+          plane when a chosen subset contracts. The mechanics live in the
+          crossings: contact, friction, and the bending each strip resists.</p>
+          <p class="project-meta">Ongoing, with E. T. Filipov and T. Y. Moore</p>
+        </article>
+
+        <article class="project">
+          <h4>A grammar for woven structures</h4>
+          <p>A notation that writes down a weave as a string rather than a
+          picture, covering mixed active and passive weavers, with a rule set
+          that rejects patterns that cannot physically be woven.</p>
+          <p class="project-meta">Ongoing</p>
+        </article>
+
+        <article class="project">
+          <h4>Kinematics of interlaced strip networks</h4>
+          <p>What a weave can and cannot do before any material properties are
+          assigned — the mobility and constraint counting that bounds the space
+          of reachable shapes.</p>
+          <p class="project-meta">Ongoing</p>
+        </article>
+      </div>
+    </section>
+
+    <hr class="weft-rule">
+
+    <section class="category">
+      <h3>Reduced-order modeling and inverse design</h3>
+      <p>Full simulation of a weave is far too slow to search over. These
+      projects build models that keep the physics that matters, drop the rest,
+      and run fast enough to sit inside a design loop.</p>
+
+      <div class="projects">
+        <article class="project">
+          <h4>A reduced-order model for shape-morphing woven surfaces</h4>
+          <p>A low-dimensional description of the morphed shape driven by the
+          weave's geometric parameters, validated against full structural
+          simulation and physical specimens.</p>
+          <p class="project-meta">Manuscript in preparation</p>
+        </article>
+
+        <article class="project">
+          <h4>Inverse design over weave geometry</h4>
+          <p>Going backward from a target surface to the flat pattern that
+          produces it, searching over weaver widths, spacings, and which strips
+          are active. The reduced-order model is the forward engine that makes
+          the search affordable.</p>
+          <p class="project-meta">Ongoing</p>
+        </article>
+
+        <article class="project">
+          <h4>Structural simulation of biaxial woven sheets</h4>
+          <p>A finite element code built for this class of structure: bar,
+          connector, angular and dihedral spring elements with analytical
+          Hessians, solved through instability with arc-length continuation.</p>
+          <p class="project-meta">MATLAB, ongoing</p>
+        </article>
+
+        <article class="project">
+          <h4>Enumerating the design space</h4>
+          <p>Generating weave libraries at scale, with symmetry
+          deduplication so that patterns identical under reflection and rotation
+          are counted once.</p>
+          <p class="project-meta">Ongoing</p>
+        </article>
+      </div>
+    </section>
+
+    <hr class="weft-rule">
+
+    <section class="category">
+      <h3>Active structures and embedded actuation</h3>
+      <p>Getting the actuator out of the motor and into the structure itself.</p>
+
+      <div class="projects">
+        <article class="project">
+          <h4>Heat-shrink weavers as distributed actuators</h4>
+          <p>Shrink-film strips woven directly into the sheet, so that the
+          actuation pattern and the structural pattern are the same object.
+          Anisotropic shrinkage turns out to matter more than it looks like it
+          should.</p>
+          <p class="project-meta">Ongoing</p>
+        </article>
+
+        <article class="project">
+          <h4>A rotational electrostatic clutch</h4>
+          <p>A clutch that engages and releases electrostatically at low power,
+          aimed at compact transmissions where a conventional brake or motor is
+          too heavy to carry.</p>
+          <p class="project-meta">Manuscript in preparation</p>
+        </article>
+      </div>
+    </section>
+
+    <hr class="weft-rule">
+
+    <section class="category">
+      <h3>Experimental platforms and instrumentation</h3>
+      <p>Models are only worth what you can check them against. These are the
+      rigs and pipelines that make the checking possible.</p>
+
+      <div class="projects">
+        <article class="project">
+          <h4>Fabrication pipeline for woven specimens</h4>
+          <p>From a pattern string to a cut file to a woven sheet, so that the
+          specimen on the bench is provably the pattern that was simulated.</p>
+          <p class="project-meta">Ongoing</p>
+        </article>
+
+        <article class="project">
+          <h4>Shape capture and characterization</h4>
+          <p>Measuring the morphed geometry of a sheet well enough to compare it
+          to a predicted surface, and measuring the load it carries once it gets
+          there.</p>
+          <p class="project-meta">Ongoing</p>
+        </article>
+
+        <article class="project">
+          <h4>Clutch test bench</h4>
+          <p>Torque, engagement time, and holding force under repeated cycling,
+          instrumented to separate electrostatic behavior from friction.</p>
+          <p class="project-meta">Ongoing</p>
+        </article>
+      </div>
+    </section>
+
+    <footer class="foot">
+      <p>Last updated September 2026.</p>
+    </footer>
+
+  </main>
+</div>
+
+</body>
+</html>
