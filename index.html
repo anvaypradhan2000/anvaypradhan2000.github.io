@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Anvay — Shape-morphing woven materials</title>
+<meta name="description" content="PhD candidate in Mechanical Engineering at the University of Michigan, working on shape-morphing woven architected materials.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700&family=Spectral:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<a class="skip" href="#main">Skip to content</a>
+
+<div class="page">
+
+  <!-- ─── LEFT RAIL (the warp: fixed, vertical) ─────────────────── -->
+  <header class="rail">
+    <div class="rail-inner">
+      <!-- EDIT: your full name -->
+      <h1 class="name">Anvay <span class="surname">Lastname</span></h1>
+
+      <p class="role">PhD candidate, Mechanical Engineering<br>
+      University of Michigan, Ann Arbor</p>
+
+      <nav class="nav" aria-label="Sections">
+        <a href="#about">Research vision</a>
+        <a href="#research">Research</a>
+        <a href="#publications">Publications</a>
+        <a href="#tools">Code &amp; tools</a>
+        <a href="#contact">Contact</a>
+      </nav>
+
+      <ul class="links">
+        <!-- EDIT: replace all of these with your real links -->
+        <li><a href="mailto:you@umich.edu">you@umich.edu</a></li>
+        <li><a href="cv.pdf">Curriculum vitae</a></li>
+        <li><a href="https://scholar.google.com/">Google Scholar</a></li>
+        <li><a href="https://github.com/">GitHub</a></li>
+      </ul>
+    </div>
+  </header>
+
+  <!-- ─── MAIN COLUMN (the weft: content passing through) ───────── -->
+  <main class="main" id="main">
+
+    <!-- Hero -->
+    <section class="hero">
+      <p class="lede">I study how flat woven sheets become three-dimensional
+      structures — and how to design the flat pattern that produces a shape you
+      want.</p>
+
+      <figure class="loom">
+        <div class="loom-stage">
+          <svg id="weave" class="weave" viewBox="0 0 560 360" role="img"
+               aria-label="A plain-weave grid of interlaced strips. Two of the strips are active and contract when the sheet morphs."></svg>
+        </div>
+        <figcaption class="loom-cap">
+          <button id="morph" class="morph" type="button" aria-pressed="false">
+            Morph the sheet
+          </button>
+          <span class="loom-note">Blue strips contract when heated; the sheet
+          buckles out of plane.</span>
+        </figcaption>
+      </figure>
+    </section>
+
+    <hr class="weft">
+
+    <!-- About / vision -->
+    <section id="about" class="block">
+      <h2>Research vision</h2>
+      <p>My work starts with a physical system, builds mathematics that explains
+      it, pushes that mathematics past the limits it was written for, and then
+      carries the result back into something you can hold. Woven architected
+      materials are where all three steps meet: the geometry is simple enough to
+      write down, rich enough to be hard, and cheap enough to cut and test the
+      same afternoon.</p>
+
+      <p>A woven sheet is an unusual kind of material. It has no continuum to
+      speak of — just strips, contacts, and friction — yet it carries load,
+      stores energy in bending, and folds itself into shapes that were never
+      drawn. I want a design language for that: a notation for the pattern, a
+      model fast enough to search over, and a route from a target shape back to
+      the flat sheet that makes it.</p>
+
+      <p class="advisors">Advised by
+      <a href="https://sites.google.com/umich.edu/filipovresearch/">Evgueni T. Filipov</a>
+      and
+      <a href="https://taliaymoore.com/">Talia Y. Moore</a>.</p>
+    </section>
+
+    <hr class="weft">
+
+    <!-- Research -->
+    <section id="research" class="block">
+      <h2>Research</h2>
+
+      <article class="thread">
+        <h3>Shape-morphing woven architected materials</h3>
+        <p>Flat sheets woven from passive strips and heat-shrinking active
+        strips. Contracting a chosen subset of the weavers puts the sheet in
+        conflict with itself, and it resolves that conflict by leaving the
+        plane. The design question is which strips, how wide, and how spaced.</p>
+      </article>
+
+      <article class="thread">
+        <h3>Reduced-order modeling and inverse design</h3>
+        <p>Full structural simulation of a weave is too slow to search over, so
+        I build reduced-order models that keep the deformation physics that
+        matters and drop the rest. The model is the forward engine; the goal is
+        inverse design over geometric parameters — weaver widths, spacings, and
+        the pattern itself.</p>
+      </article>
+
+      <article class="thread">
+        <h3>Weave notation and simulation tooling</h3>
+        <p>A grammar for writing down woven structures that mix active and
+        passive weavers, with validity rules that reject patterns that cannot be
+        woven, and a renderer that draws them. Behind it, a finite element code
+        for biaxial woven sheets with analytical Hessians and arc-length
+        continuation through instability.</p>
+      </article>
+
+      <article class="thread">
+        <h3>Rotational electrostatic clutches</h3>
+        <p>A device line running alongside the materials work: a rotational
+        electrostatic clutch that engages and releases under low power, with an
+        eye toward compact robotic transmissions.</p>
+      </article>
+    </section>
+
+    <hr class="weft">
+
+    <!-- Publications -->
+    <section id="publications" class="block">
+      <h2>Publications</h2>
+      <!-- EDIT: replace these three with your real entries, newest first. -->
+      <ol class="pubs">
+        <li>
+          <p class="pub-title">Paper title goes here</p>
+          <p class="pub-meta">Your Name, Coauthor, E. T. Filipov, T. Y. Moore.
+          <em>Journal Name</em>, 2026.</p>
+          <p class="pub-links"><a href="#">PDF</a> <a href="#">DOI</a> <a href="#">Code</a></p>
+        </li>
+        <li>
+          <p class="pub-title">Second paper title</p>
+          <p class="pub-meta">Your Name, E. T. Filipov. <em>Journal Name</em>, 2025.</p>
+          <p class="pub-links"><a href="#">PDF</a> <a href="#">DOI</a></p>
+        </li>
+        <li>
+          <p class="pub-title">Conference paper or abstract</p>
+          <p class="pub-meta">Your Name et al. <em>Conference</em>, 2025.</p>
+          <p class="pub-links"><a href="#">PDF</a></p>
+        </li>
+      </ol>
+    </section>
+
+    <hr class="weft">
+
+    <!-- Tools -->
+    <section id="tools" class="block">
+      <h2>Code &amp; tools</h2>
+      <dl class="tools">
+        <dt><a href="#">weave_render</a></dt>
+        <dd>Python renderer for the weave notation. Takes a pattern, checks it
+        against the validity rules, and writes SVG or PDF.</dd>
+
+        <dt><a href="#">Woven sheet simulator</a></dt>
+        <dd>MATLAB finite element code for biaxial woven sheets: bar, connector,
+        angular and dihedral spring elements, with Newton–Raphson and
+        arc-length solvers.</dd>
+      </dl>
+    </section>
+
+    <hr class="weft">
+
+    <!-- Contact -->
+    <section id="contact" class="block">
+      <h2>Contact</h2>
+      <p>I am on the job market for postdoctoral and faculty positions starting
+      in 2027. If you are working on architected materials, computational
+      mechanics, or bioinspired structures, I would like to hear from you.</p>
+      <!-- EDIT: your real address and building -->
+      <p class="addr">you@umich.edu<br>
+      G.G. Brown Laboratory, 2350 Hayward St, Ann Arbor, MI 48109</p>
+    </section>
+
+    <footer class="foot">
+      <p>Last updated September 2026. Built by hand.</p>
+    </footer>
+
+  </main>
+</div>
+
+<script>
+/* ──────────────────────────────────────────────────────────────
+   The weave.
+   Plain weave: a cell (row + col) that is even means the weft
+   strip passes OVER the warp strip; odd means it passes under.
+   Change ACTIVE_WARP / ACTIVE_WEFT to recolor different strips.
+   ────────────────────────────────────────────────────────────── */
+(function () {
+  var NS = 'http://www.w3.org/2000/svg';
+  var svg = document.getElementById('weave');
+  if (!svg) return;
+
+  var COLS = 9, ROWS = 6;
+  var W = 28;          // strip width
+  var GAP = 34;        // pitch between strip centers
+  var PAD = 26;
+  var ACTIVE_WARP = [2, 6];
+  var ACTIVE_WEFT = [1, 4];
+
+  var spanX = PAD * 2 + (COLS - 1) * GAP + W;
+  var spanY = PAD * 2 + (ROWS - 1) * GAP + W;
+  svg.setAttribute('viewBox', '0 0 ' + spanX + ' ' + spanY);
+
+  var root = document.createElementNS(NS, 'g');
+  svg.appendChild(root);
+
+  function strip(x, y, w, h, active) {
+    var r = document.createElementNS(NS, 'rect');
+    r.setAttribute('x', x); r.setAttribute('y', y);
+    r.setAttribute('width', w); r.setAttribute('height', h);
+    r.setAttribute('rx', 3);
+    r.setAttribute('class', 'tow' + (active ? ' tow-active' : ''));
+    return r;
+  }
+  function colX(c) { return PAD + c * GAP; }
+  function rowY(r) { return PAD + r * GAP; }
+
+  // 1. warp (vertical) strips, full height
+  for (var c = 0; c < COLS; c++) {
+    var g = document.createElementNS(NS, 'g');
+    g.setAttribute('class', 'warp');
+    g.appendChild(strip(colX(c), PAD - 10, W, spanY - 2 * PAD + 20,
+                        ACTIVE_WARP.indexOf(c) > -1));
+    root.appendChild(g);
+  }
+
+  // 2. weft (horizontal) strips, full width — these sit above the warp
+  for (var r2 = 0; r2 < ROWS; r2++) {
+    var gw = document.createElementNS(NS, 'g');
+    gw.setAttribute('class', 'weft-row');
+    gw.appendChild(strip(PAD - 10, rowY(r2), spanX - 2 * PAD + 20, W,
+                         ACTIVE_WEFT.indexOf(r2) > -1));
+    root.appendChild(gw);
+  }
+
+  // 3. put the warp back on top wherever it should pass over.
+  //    Only the two side edges are stroked, so the warp strip reads as one
+  //    continuous piece rather than a box drawn at every crossing.
+  function overPatch(x, y, w, h, active) {
+    var g = document.createElementNS(NS, 'g');
+    var f = document.createElementNS(NS, 'rect');
+    f.setAttribute('x', x); f.setAttribute('y', y);
+    f.setAttribute('width', w); f.setAttribute('height', h);
+    f.setAttribute('class', 'tow tow-fill' + (active ? ' tow-active' : ''));
+    g.appendChild(f);
+    [x, x + w].forEach(function (lx) {
+      var l = document.createElementNS(NS, 'line');
+      l.setAttribute('x1', lx); l.setAttribute('x2', lx);
+      l.setAttribute('y1', y); l.setAttribute('y2', y + h);
+      l.setAttribute('class', 'tow-edge' + (active ? ' tow-edge-active' : ''));
+      g.appendChild(l);
+    });
+    return g;
+  }
+
+  var over = GAP - W;   // reach into the gap on each side
+  for (var r3 = 0; r3 < ROWS; r3++) {
+    for (var c3 = 0; c3 < COLS; c3++) {
+      if ((r3 + c3) % 2 === 0) continue;   // weft stays on top here
+      root.appendChild(overPatch(colX(c3), rowY(r3) - over / 2,
+                                 W, W + over,
+                                 ACTIVE_WARP.indexOf(c3) > -1));
+    }
+  }
+
+  // Toggle between the flat sheet and the morphed one.
+  var btn = document.getElementById('morph');
+  var stage = svg.parentNode;
+  btn.addEventListener('click', function () {
+    var on = stage.classList.toggle('is-morphed');
+    btn.setAttribute('aria-pressed', String(on));
+    btn.textContent = on ? 'Flatten the sheet' : 'Morph the sheet';
+  });
+})();
+</script>
+
+</body>
+</html>

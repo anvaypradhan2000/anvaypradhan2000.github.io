@@ -1,0 +1,338 @@
+/* ==========================================================================
+   Anvay — research site
+   Structure: a fixed vertical rail (the warp) and a content column that
+   passes through it (the weft). Rules between sections are woven, not solid.
+   ========================================================================== */
+
+:root {
+  --paper:      #F0F1EF;
+  --paper-deep: #E3E5E1;
+  --ink:        #14181B;
+  --tow:        #46545E;
+  --rule:       #C7CCC7;
+  --active:     #17709E;
+  --active-dim: #8FBDD4;
+  --heat:       #C98A22;
+
+  --measure: 34rem;
+  --step: clamp(2.2rem, 5vw, 3.6rem);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --paper:      #15191C;
+    --paper-deep: #1E2428;
+    --ink:        #E9EBE7;
+    --tow:        #A3AEB5;
+    --rule:       #38424A;
+    --active:     #6FB9DD;
+    --active-dim: #36637C;
+    --heat:       #D9A23F;
+  }
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: Spectral, Georgia, 'Times New Roman', serif;
+  font-size: 1.0625rem;
+  line-height: 1.66;
+  -webkit-font-smoothing: antialiased;
+}
+
+.skip {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  background: var(--ink);
+  color: var(--paper);
+  padding: .6rem 1rem;
+  z-index: 10;
+}
+.skip:focus { left: 0; }
+
+/* --- Page frame ---------------------------------------------------------- */
+
+.page {
+  max-width: 62rem;
+  margin: 0 auto;
+  padding: 0 1.5rem 4rem;
+}
+
+@media (min-width: 60rem) {
+  .page {
+    display: grid;
+    grid-template-columns: 15rem minmax(0, 1fr);
+    gap: 4rem;
+    padding: 0 2.5rem 6rem;
+  }
+}
+
+/* --- Rail ---------------------------------------------------------------- */
+
+.rail-inner { padding: 3rem 0 0; }
+
+@media (min-width: 60rem) {
+  .rail-inner {
+    position: sticky;
+    top: 0;
+    padding: 5rem 0 2rem;
+  }
+}
+
+.name {
+  font-family: Archivo, 'Helvetica Neue', Arial, sans-serif;
+  font-weight: 700;
+  font-size: 1.75rem;
+  line-height: 1.1;
+  letter-spacing: -0.022em;
+  margin: 0 0 .75rem;
+}
+.surname { display: block; color: var(--tow); font-weight: 500; }
+
+.role {
+  margin: 0 0 2rem;
+  font-size: .9375rem;
+  line-height: 1.5;
+  color: var(--tow);
+}
+
+.nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .35rem 1.25rem;
+  margin-bottom: 2rem;
+}
+
+@media (min-width: 60rem) {
+  .nav { flex-direction: column; gap: .4rem; }
+}
+
+.nav a {
+  font-family: Archivo, Arial, sans-serif;
+  font-size: .9375rem;
+  font-weight: 500;
+  color: var(--ink);
+  text-decoration: none;
+  padding-bottom: 2px;
+  background-image: none;
+}
+.nav a:hover,
+.nav a:focus-visible {
+  color: var(--active);
+  /* the weft dipping under the warp */
+  background-image: repeating-linear-gradient(
+    to right, currentColor 0 9px, transparent 9px 15px);
+  background-repeat: repeat-x;
+  background-size: 15px 1.5px;
+  background-position: 0 100%;
+}
+
+.links {
+  list-style: none;
+  margin: 0;
+  padding: 1.25rem 0 0;
+  border-top: 1px solid var(--rule);
+  font-size: .9375rem;
+}
+.links li { margin-bottom: .4rem; }
+.links a { color: var(--tow); }
+
+/* --- Main column --------------------------------------------------------- */
+
+.main { padding-top: 2.5rem; min-width: 0; }
+
+@media (min-width: 60rem) { .main { padding-top: 5rem; } }
+
+.lede {
+  font-size: clamp(1.3rem, 3.2vw, 1.72rem);
+  line-height: 1.38;
+  max-width: 26ch;
+  margin: 0 0 var(--step);
+  text-wrap: balance;
+}
+
+h2 {
+  font-family: Archivo, Arial, sans-serif;
+  font-weight: 600;
+  font-size: 1.0625rem;
+  letter-spacing: -0.01em;
+  color: var(--tow);
+  margin: 0 0 1.25rem;
+}
+
+h3 {
+  font-family: Archivo, Arial, sans-serif;
+  font-weight: 600;
+  font-size: 1.0625rem;
+  letter-spacing: -0.012em;
+  margin: 0 0 .4rem;
+}
+
+.block { margin: var(--step) 0; }
+.block p { max-width: var(--measure); }
+
+.thread { margin-bottom: 1.9rem; }
+.thread:last-child { margin-bottom: 0; }
+.thread p { margin: 0; color: var(--tow); }
+
+.advisors { margin-bottom: 0; }
+
+a { color: var(--active); text-underline-offset: .18em; }
+a:focus-visible {
+  outline: 2px solid var(--active);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+/* --- Woven rule ---------------------------------------------------------- */
+
+.weft {
+  border: 0;
+  height: 6px;
+  margin: 0;
+  background-image:
+    repeating-linear-gradient(to right, var(--rule) 0 22px, transparent 22px 44px),
+    repeating-linear-gradient(to right, transparent 0 22px, var(--tow) 22px 44px);
+  background-size: 44px 2px, 44px 2px;
+  background-position: 0 0, 0 4px;
+  background-repeat: repeat-x;
+  opacity: .85;
+}
+
+/* --- The loom ------------------------------------------------------------ */
+
+.loom { margin: 0 0 var(--step); }
+
+.loom-stage {
+  perspective: 1000px;
+  padding: 1.25rem 0 1.5rem;
+  background: var(--paper-deep);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.weave {
+  display: block;
+  width: 100%;
+  height: auto;
+  transform-origin: 50% 60%;
+  transition: transform 900ms cubic-bezier(.42, 0, .2, 1);
+}
+
+.tow {
+  fill: var(--paper);
+  stroke: var(--tow);
+  stroke-width: 1.25;
+  transition: fill 900ms ease, stroke 900ms ease;
+}
+
+.tow-fill { stroke: none; }
+
+.tow-edge {
+  stroke: var(--tow);
+  stroke-width: 1.25;
+  transition: stroke 900ms ease;
+}
+
+.tow-active { fill: var(--active-dim); stroke: var(--active); }
+.tow-fill.tow-active { stroke: none; }
+.tow-edge-active { stroke: var(--active); }
+
+.is-morphed .weave {
+  transform: rotateX(56deg) rotateZ(-12deg) scale(.94);
+}
+.is-morphed .tow-active { fill: var(--heat); stroke: var(--heat); }
+.is-morphed .tow-fill.tow-active { stroke: none; }
+.is-morphed .tow-edge-active { stroke: var(--heat); }
+
+.loom-cap {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: .75rem 1rem;
+  margin-top: .9rem;
+}
+
+.morph {
+  font-family: Archivo, Arial, sans-serif;
+  font-size: .875rem;
+  font-weight: 600;
+  color: var(--paper);
+  background: var(--ink);
+  border: 0;
+  border-radius: 2px;
+  padding: .5rem .9rem;
+  cursor: pointer;
+}
+.morph:hover { background: var(--active); }
+.morph:focus-visible { outline: 2px solid var(--active); outline-offset: 3px; }
+
+.loom-note {
+  font-size: .875rem;
+  color: var(--tow);
+  max-width: 30ch;
+}
+
+/* --- Publications -------------------------------------------------------- */
+
+.pubs {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  max-width: var(--measure);
+}
+.pubs li {
+  padding-bottom: 1.2rem;
+  margin-bottom: 1.2rem;
+  border-bottom: 1px solid var(--rule);
+}
+.pubs li:last-child { border-bottom: 0; margin-bottom: 0; padding-bottom: 0; }
+
+.pub-title {
+  font-family: Archivo, Arial, sans-serif;
+  font-weight: 600;
+  font-size: 1rem;
+  margin: 0 0 .25rem;
+}
+.pub-meta { margin: 0; font-size: .9375rem; color: var(--tow); }
+.pub-links { margin: .35rem 0 0; font-size: .875rem; }
+.pub-links a { margin-right: .9rem; }
+
+/* --- Tools --------------------------------------------------------------- */
+
+.tools { margin: 0; max-width: var(--measure); }
+.tools dt {
+  font-family: Archivo, Arial, sans-serif;
+  font-weight: 600;
+  margin-bottom: .2rem;
+}
+.tools dd {
+  margin: 0 0 1.4rem;
+  color: var(--tow);
+}
+.tools dd:last-child { margin-bottom: 0; }
+
+/* --- Contact & footer ---------------------------------------------------- */
+
+.addr { color: var(--tow); font-size: .9375rem; }
+
+.foot {
+  margin-top: var(--step);
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--rule);
+  font-size: .875rem;
+  color: var(--tow);
+}
+.foot p { margin: 0; }
+
+/* --- Motion preference --------------------------------------------------- */
+
+@media (prefers-reduced-motion: reduce) {
+  .weave, .tow { transition: none; }
+}
